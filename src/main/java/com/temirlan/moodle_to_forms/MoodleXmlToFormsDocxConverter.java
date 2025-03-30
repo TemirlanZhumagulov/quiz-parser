@@ -126,7 +126,7 @@ public class MoodleXmlToFormsDocxConverter {
             throw new RuntimeException("There is no correct answer for a multiple choice question.");
         }
 
-        createParagraph(doc, "Answer: " + correctAnswer + ")");
+        createParagraph(doc, "Answer: " + correctAnswer);
     }
 
     private static void processTrueFalseQuestion(XWPFDocument doc, Element questionElement, int questionNumber) throws IOException {
