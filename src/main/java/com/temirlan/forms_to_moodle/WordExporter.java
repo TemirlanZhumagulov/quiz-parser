@@ -1,4 +1,4 @@
-package com.temirlan;
+package com.temirlan.forms_to_moodle;
 
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
@@ -25,10 +25,7 @@ public class WordExporter {
 
 
             questionRun.setText(mq.getQuestionText());
-            questionRun.addCarriageReturn(); // new line
 
-            // Next lines for the answers:
-            //    Typically label answers as A), B), C), etc.
             List<String> answers = mq.getAnswers();
             for (int ansIndex = 0; ansIndex < answers.size(); ansIndex++) {
                 // Convert 0->A, 1->B, 2->C, ...
@@ -43,8 +40,6 @@ public class WordExporter {
                 answerRun.setText(answerLine);
             }
 
-            // “Answer:” line
-            //    If multiple correct answers, we join them with comma
             List<Integer> correctIndices = mq.getCorrectAnswerIndices();
             StringBuilder correctLine = new StringBuilder("Answer: ");
             for (int c = 0; c < correctIndices.size(); c++) {
@@ -61,8 +56,8 @@ public class WordExporter {
             answerKeyRun.setText(correctLine.toString());
 
             // Add an extra blank line between questions
-            XWPFParagraph spacer = doc.createParagraph();
-            spacer.createRun().addCarriageReturn();
+//            XWPFParagraph spacer = doc.createParagraph();
+//            spacer.createRun().addCarriageReturn();
         }
 
 
@@ -70,7 +65,7 @@ public class WordExporter {
             doc.write(fos);
             System.out.println("Questions exported to " + outputPath);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 

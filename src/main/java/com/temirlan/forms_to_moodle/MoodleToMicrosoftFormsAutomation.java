@@ -1,4 +1,4 @@
-package com.temirlan;
+package com.temirlan.forms_to_moodle;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.*;
@@ -33,31 +33,9 @@ public class MoodleToMicrosoftFormsAutomation {
         try {
             driver.get("https://www.office.com");
 
-            WebElement signInBtn = findElementWithRetries(driver, By.linkText("Sign in"), 10, 1000);
-            signInBtn.click();
-
-            WebElement emailField = findElementWithRetries(driver, By.id("i0116"), 100, 1000);
-            emailField.sendKeys(msUsername);
-            WebElement nextBtn1 = findElementWithRetries(driver, By.id("idSIButton9"), 20, 1000);
-            nextBtn1.click();
-
-            WebElement pwdField = findElementWithRetries(driver, By.id("i0118"), 50, 1000);
-            pwdField.sendKeys(msPassword);
-            Thread.sleep(3000); // todo it is needed to avoid
-            WebElement nextBtn2 = findElementWithRetries(driver, By.id("idSIButton9"), 50, 1000);
-            nextBtn2.click();
-
-            try {
-                WebElement noBtn = findElementWithRetries(driver, By.id("idBtn_Back"), 5, 1000);
-                noBtn.click();
-            } catch (NoSuchElementException | StaleElementReferenceException ex) {
-                // Might not appear
-            }
-
-            Thread.sleep(2000);
+            login(driver, msUsername, msPassword);
 
             driver.get("https://forms.office.com/");
-            Thread.sleep(2000);
 
             WebElement gotItBtn = findElementNoThrow(driver, By.xpath("//button[@aria-label='Close']"), 5, 1000);
             // Or maybe "button[aria-label='Close']"
@@ -114,6 +92,29 @@ public class MoodleToMicrosoftFormsAutomation {
             } catch (InterruptedException e) {
             }
             driver.quit();
+        }
+    }
+
+    private static void login(WebDriver driver, String msUsername, String msPassword) throws InterruptedException {
+        WebElement signInBtn = findElementWithRetries(driver, By.linkText("Sign in"), 10, 1000);
+        signInBtn.click();
+
+        WebElement emailField = findElementWithRetries(driver, By.id("i0116"), 100, 1000);
+        emailField.sendKeys(msUsername);
+        WebElement nextBtn1 = findElementWithRetries(driver, By.id("idSIButton9"), 20, 1000);
+        nextBtn1.click();
+
+        WebElement pwdField = findElementWithRetries(driver, By.id("i0118"), 50, 1000);
+        pwdField.sendKeys(msPassword);
+        Thread.sleep(3000); // todo it is needed to avoid
+        WebElement nextBtn2 = findElementWithRetries(driver, By.id("idSIButton9"), 50, 1000);
+        nextBtn2.click();
+
+        try {
+            WebElement noBtn = findElementWithRetries(driver, By.id("idBtn_Back"), 5, 1000);
+            noBtn.click();
+        } catch (NoSuchElementException | StaleElementReferenceException ex) {
+            // Might not appear
         }
     }
 

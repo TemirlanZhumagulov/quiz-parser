@@ -1,4 +1,4 @@
-package com.temirlan;
+package com.temirlan.forms_to_moodle;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;

@@ -1,4 +1,4 @@
-package com.temirlan;
+package com.temirlan.forms_to_moodle;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -70,8 +70,7 @@ public class QuizScraper {
         WebElement questionInfoSpan = questionTitleDiv.findElement(
                 By.xpath(".//span[starts-with(@id,'QuestionInfo_')]")
         );
-        String questionType = questionInfoSpan.getText().trim();
-        return questionType;
+        return questionInfoSpan.getText().trim();
     }
 
     private static String getQuestionText(WebElement questionTitleDiv) {
